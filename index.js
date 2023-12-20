@@ -1,18 +1,20 @@
-const express = require('express')
+// rest API, http
+const express = require('express');
+const body_parser = require('body-parser');
+const app = express();
 const port = 3000
-// creating object of express class
-const app = express()
 
-
-// syntax:
-// app.get('route,callback_function(){
-//      sending response
-//      res.send(); 
-// })
-app.get('/', function(req,res){
-    res.send('Hello world!');        
+app.use(body_parser.json());
+app.get('/',function(req,res){
+        res.send('get request');
 })
-// binding and listening for connections on the specified host and port 
-app.listen(port, function(){
-    console.log(`Example app listening on ${port}`);
+app.post('/conversations', (req, res) => {
+        console.log(req.body);
+        // req.query => get params from URL
+        // url can be like http://localhost:3000?message=123
+        console.log(req.query.message);
+        res.send({ msg: "2+2 = 4" })
+})
+app.listen(port, () => {
+console.log('Example app listening on')
 })
